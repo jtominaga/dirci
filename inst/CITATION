@@ -1,0 +1,6 @@
+bibentry(bibtype = "Misc",
+         title = "Direct Ci calculations with {dirci}",
+         author = "Jun Tominaga",
+         year = "2018",
+         version = "0.0.9000",
+         doi = "NA")
