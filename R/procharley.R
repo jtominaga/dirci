@@ -28,5 +28,9 @@ procharley <- function(data, a, b, gstar, gea, gc, Rd, Tleaf){
   data$J <- a * b * data$Qin * data$PhiPS2
   data$Cc <- (data$gstar * (data$J + 8 * (data$A + data$Rd)) /
                 (data$J - 4 * (data$A + data$Rd)))
-  data$gCO2 <- data$A / (data$Ci - data$Cc)
+  data$gCO2 <- data$A / (data$CO2_B - data$Cc)
+  data$gCO2_uncorrected <- data$A / (data$Ci - data$Cc)
+  data$rco2   <- 1 / data$gco2
+  data$rsc    <- 1 / data$gsc
+  data$D <- data$rco2 - data$rsc
 }
