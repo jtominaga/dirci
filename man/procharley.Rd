@@ -5,7 +5,7 @@
 \title{Calculating mesophyll conductance via fluorescence
 \code{procharley} Calculates mesophyll conductance and chloroplastic CO2}
 \usage{
-procharley(data, a, b, gstar, gea, gc, Rd, Tleaf)
+procharley(data, a, b, gstar, gea, gc, Rd, Tleaf, cimeas)
 }
 \arguments{
 \item{data}{Dataframe}
@@ -23,6 +23,8 @@ procharley(data, a, b, gstar, gea, gc, Rd, Tleaf)
 \item{Rd}{dark respiration}
 
 \item{Tleaf}{specifies leaf temperature to use}
+
+\item{cimeas}{TRUE or FALSE, was Ci directly measured?}
 }
 \description{
 Calculating mesophyll conductance via fluorescence
