@@ -21,6 +21,9 @@ fitcond <- function(data, rco2, gco2, rsc, gsc, gsw, gcw, gias){
   rsc    <- ifelse(missing(rsc)  == TRUE, 1 / gsc,  rsc)
   data$D <- data$rco2 - data$rsc
   m      <- nls(data$D ~ 1.6 * (1 / (data$gsw - data$gcw) - 1 / data$gsw)
-                + 1 / data$gias)
-
+                + 1 / data$gias,
+                start = list(data$gcw = 0, data$gias = 0.1))
+  return(m)
+  cond   <- coef(m)
+  return(cond)
 }
