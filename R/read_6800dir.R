@@ -18,15 +18,14 @@ read_6800dir <- function(filename, skiplines){
                         header = TRUE, fill = TRUE)
 
   # Read in file --------------------------------------------
-  data <- read.delim(filename, sep = "\t", skip = skiplines+2,
+  data <- read.delim(filename, sep = "\t", skip = skiplines + 2,
                      header = FALSE, fill = TRUE)
 
   # Assign column names -------------------------------------
   colnames(data) <- colnames(colname)
 
-  data$cidifference <- data$Ci-data$CO2_B
+  data$cidifference <- data$Ci - data$CO2_B
 
   # Print data ----------------------------------------------
   return(data)
 }
-
