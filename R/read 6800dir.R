@@ -12,6 +12,7 @@
 #'
 read_6800dir <- function(filename, skiplines){
   skiplines <- ifelse(missing(skiplines) == TRUE, 54, skiplines)
+
   # Read in file for column names ---------------------------
   colname <- read.delim(filename, sep = "\t", skip = skiplines,
                         header = TRUE, fill = TRUE)
