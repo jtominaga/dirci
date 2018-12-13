@@ -5,7 +5,7 @@ Version: 0.0.9000
 Author: c(person("Tominaga", "Jun", email = "jtominaga@unm.edu", role = "cre"),
     person("Stinziano", "Joseph", email = "josephstinziano@gmail.com", role = "aut",
     comment = c(ORCID = "0000-0002-7628-4201")))
-Maintainer: Jun Tominaga [aut, cre]
+Maintainer: Jun Tominaga <jtominaga@unm.edu>
 Description: Integrates direct measurements of intercellular CO2 concentrations
     into gas exchange calculations. Allows calculation of cuticle conductance
     to water and intercellular airspace conductance.
@@ -19,3 +19,4 @@ Suggests: knitr,
 VignetteBuilder: knitr
 Imports: utils,
     stats
+RoxygenNote: 6.1.0

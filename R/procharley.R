@@ -7,7 +7,6 @@
 #' @param gstar CO2 compensation point in absence of Rd
 #' @param gea activation energy for gstar
 #' @param gc constant for the temperature response of gstar
-#' @param PhiPS2 PSII quantum yield in the light
 #' @param Rd dark respiration
 #' @param Tleaf specifies leaf temperature to use
 #'
@@ -23,7 +22,7 @@ procharley <- function(data, a, b, gstar, gea, gc, Rd, Tleaf){
   gea <- ifelse(missing(gea) == TRUE, 24.46, gea)
   gc <- ifelse(missing(gc) == TRUE, 13.49, gc)
 
-  data$gstar <- exp(gc - gea / (8.314 * (data$leaf + 273.15)))
+  data$gstar <- exp(gc - gea / (0.008314 * (data$leaf + 273.15)))
 
   data$J <- a * b * data$Qin * data$PhiPS2
   data$Cc <- (data$gstar * (data$J + 8 * (data$A + data$Rd)) /

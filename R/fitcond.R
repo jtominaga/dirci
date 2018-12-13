@@ -9,6 +9,7 @@
 #'
 #' @return fitcond fits cuticular and intercellular conductances
 #' @importFrom stats nls
+#' @importFrom stats coef
 #' @export
 #'
 #'
