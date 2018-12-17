@@ -18,5 +18,6 @@ Suggests: knitr,
     testthat
 VignetteBuilder: knitr
 Imports: utils,
-    stats
+    stats,
+    ggplot2
 RoxygenNote: 6.1.0

@@ -26,6 +26,9 @@ procharley(data, a, b, gstar, gea, gc, Rd, Tleaf, cimeas)
 
 \item{cimeas}{TRUE or FALSE, was Ci directly measured?}
 }
+\value{
+procharley fits mesophyll conductance via the variable J method
+}
 \description{
 Calculating mesophyll conductance via fluorescence
 \code{procharley} Calculates mesophyll conductance and chloroplastic CO2

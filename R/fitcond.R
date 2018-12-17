@@ -2,7 +2,7 @@
 #' \code{fitcond} Fits cuticular and intercellular conductances
 #'
 #' @param data A dataframe.
-#' @param D    Difference in total and stomatal resistances to CO2 diffusion
+#' @param rdiff Difference in total and stomatal resistances to CO2 diffusion
 #' @param gsw  Stomatal conductance to water
 #' @param gcw  Cuticular conductance to water
 #' @param gias Intercellular conductance to water?
@@ -14,8 +14,8 @@
 #'
 #'
 #'
-fitcond <- function(data, D, gsw, gcw, gias){
-  m      <- nls(D ~ 1.6 * (1 / (gsw - gcw) - 1 / gsw)
+fitcond <- function(data, rdiff, gsw, gcw, gias){
+  m      <- nls(rdiff ~ 1.6 * (1 / (gsw - gcw) - 1 / gsw)
                 + 1 / gias, data = data,
                 start = list(gcw = 0, gias = 0.1))
   cond   <- coef(m)

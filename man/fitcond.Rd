@@ -5,12 +5,12 @@
 \title{Fits cuticular and intercellular conductance to data
 \code{fitcond} Fits cuticular and intercellular conductances}
 \usage{
-fitcond(data, D, gsw, gcw, gias)
+fitcond(data, rdiff, gsw, gcw, gias)
 }
 \arguments{
 \item{data}{A dataframe.}
 
-\item{D}{Difference in total and stomatal resistances to CO2 diffusion}
+\item{rdiff}{Difference in total and stomatal resistances to CO2 diffusion}
 
 \item{gsw}{Stomatal conductance to water}
 
