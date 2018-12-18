@@ -38,12 +38,29 @@ read_6800dir <- function(filename, skiplines, cimin, cimax, amin, amax, co2list)
   data <- data[data$Ci < cimax, ]
   data <- data[data$A > amin, ]
   data <- data[data$A < amax, ]
-  data$CR <- round(data$CO2_r, digits = 1)
+  data$CR <- round(data$CO2_r, digits = -1)
   data$test <- match(data$CR, co2list)
   data <- data[!is.na(data$test),]
-
+  for (i in 1:length(data$co2_adj)){
+    ifelse(i == 1, data$matchcount[i] <-  0,
+           ifelse(data$co2_adj[i] - data$co2_adj[i-1] != 0,
+                  data$matchcount[i] <-  max(data$matchcount[1:i]) + 1,
+                  data$matchcount[i] <-  max(data$matchcount[1:i])))
+    ifelse(i == 1, data$co2count[i] <-  0,
+           ifelse(data$CR[i] - data$CR[i-1] != 0,
+                  data$co2count[i] <-  max(data$co2count[1:i]) + 1,
+                  data$co2count[i] <-  max(data$co2count[1:i])))
+  }
   data$cidifference <- data$Ci - data$CO2_B
+  data$co2count <- as.factor(data$co2count)
+  datasplit <- split(data, data$co2count)
+  for (i in 1:length(datasplit)){
+    datasplit[[i]] <- datasplit[[i]][datasplit[[i]]$matchcount == max(datasplit[[i]]$matchcount),]
+  }
+  data_pared <- do.call("rbind", datasplit)
+
+  data_list <- list("Partial" = data, "Pared" = data_pared)
 
   # Print data ----------------------------------------------
-  return(data)
+  return(data_list)
 }
