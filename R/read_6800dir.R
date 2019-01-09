@@ -15,8 +15,9 @@
 #'
 #'
 #'
-read_6800dir <- function(filename, skiplines, cimin, cimax, amin, amax, co2list){
-  skiplines <- ifelse(missing(skiplines) == TRUE, 54, skiplines)
+read_6800dir <- function(filename, skiplines, cimin, cimax, amin, amax,
+                         co2list, log_freq){
+  skiplines <- ifelse(missing(skiplines) == TRUE, 56, skiplines)
   cimin <- ifelse(missing(cimin) == TRUE, 0, cimin)
   cimax <- ifelse(missing(cimax) == TRUE, 2000, cimax)
   amin <- ifelse(missing(amin) == TRUE, -10, amin)
@@ -51,11 +52,36 @@ read_6800dir <- function(filename, skiplines, cimin, cimax, amin, amax, co2list)
                   data$co2count[i] <-  max(data$co2count[1:i]) + 1,
                   data$co2count[i] <-  max(data$co2count[1:i])))
   }
-  data$cidifference <- data$Ci - data$CO2_B
+  data$cidifference <- data$Ci - data$Ci.m.
+  data <- data[complete.cases(data$Ci), ]
   data$co2count <- as.factor(data$co2count)
+
+  #Looks for log time spacing anomalies to separate data into sets. this may
+  #include different leaves, different temperatures, etc.
+  data$timeset <- data$elapsed
+  for (i in 1:length(data$elapsed)){
+    ifelse(i == 1, data$timeset[i] <- 0,
+           data$timeset[i] <- data$elapsed[i] - data$elapsed[i - 1])
+  }
+  data$meas_set <- data$timeset
+  for (i in 1:length(data$timeset)){
+    ifelse(i == 1, data$meas_set <- rep(1, length(data$meas_set)),
+           ifelse(data$timeset[i] < 5 * log_freq,
+                  data$meas_set[i] <- max(data$meas_set[1:i]),
+                  data$meas_set[i] <- max(data$meas_set[1:i]) + 1))
+  }
+
+  #This section looks for the last match within a set, and equalizes the match
+  #across all measurements within that set.
+  data$co2_adj_new <- rep(0, length(data$co2_adj))
+  data$h2o_adj_new <- rep(0, length(data$h2o_adj))
+  datagroupsplit <- split(data, data$meas_set)
+  for (i in 1:length())
+
   datasplit <- split(data, data$co2count)
   for (i in 1:length(datasplit)){
-    datasplit[[i]] <- datasplit[[i]][datasplit[[i]]$matchcount == max(datasplit[[i]]$matchcount),]
+    datasplit[[i]] <- datasplit[[i]][datasplit[[i]]$matchcount ==
+                                       max(datasplit[[i]]$matchcount),]
   }
   data_pared <- do.call("rbind", datasplit)
 
