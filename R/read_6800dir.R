@@ -76,7 +76,7 @@ read_6800dir <- function(filename, skiplines, cimin, cimax, amin, amax,
   data$co2_adj_new <- rep(0, length(data$co2_adj))
   data$h2o_adj_new <- rep(0, length(data$h2o_adj))
   datagroupsplit <- split(data, data$meas_set)
-  for (i in 1:length())
+  #for (i in 1:length())
 
   datasplit <- split(data, data$co2count)
   for (i in 1:length(datasplit)){
