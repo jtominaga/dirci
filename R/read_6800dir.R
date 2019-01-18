@@ -67,16 +67,28 @@ read_6800dir <- function(filename, skiplines, cimin, cimax, amin, amax,
   for (i in 1:length(data$timeset)){
     ifelse(i == 1, data$meas_set <- rep(1, length(data$meas_set)),
            ifelse(data$timeset[i] < 5 * log_freq,
-                  data$meas_set[i] <- max(data$meas_set[1:i]),
-                  data$meas_set[i] <- max(data$meas_set[1:i]) + 1))
+                  data$meas_set[i] <- max(data$meas_set[1 : i]),
+                  data$meas_set[i] <- max(data$meas_set[1 : i]) + 1))
   }
 
   #This section looks for the last match within a set, and equalizes the match
   #across all measurements within that set.
-  data$co2_adj_new <- rep(0, length(data$co2_adj))
-  data$h2o_adj_new <- rep(0, length(data$h2o_adj))
+  data$co2_adj_new <- data$meas_set
+  data$h2o_adj_new <- data$meas_set
   datagroupsplit <- split(data, data$meas_set)
-  #for (i in 1:length())
+  for (i in 1:length(datagroupsplit)){
+      for (j in 1:length(datagroupsplit[[i]])){
+  datagroupsplit[[i]]$co2_adj_new <- datagroupsplit[[i]]$co2_adj[length(datagroupsplit[[i]])]
+  datagroupsplit[[i]]$h2o_adj_new <- datagroupsplit[[i]]$h2o_adj[length(datagroupsplit[[i]])]
+  }
+  }
+  data <- do.call("rbind", datagroupsplit)
+
+  data$co2_adj_extra <- data$co2_adj - data$co2_adj_new
+  data$h2o_adj_extra <- data$h2o_adj - data$h2o_adj_new
+
+  data$CO2_s_corrected <- ifelse(is.na(data$co2_adj_extra) == FALSE, data$CO2_s - data$co2_adj_extra, data$CO2_s)
+  data$H2O_s_corrected <- ifelse(is.na(data$h2o_adj_extra) == FALSE, data$H2O_s - data$h2o_adj_extra, data$H2O_s)
 
   datasplit <- split(data, data$co2count)
   for (i in 1:length(datasplit)){
