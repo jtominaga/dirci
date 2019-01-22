@@ -5,7 +5,8 @@
 \title{Reads files from the Li-Cor 6800 including Ci measured directly
 \code{read_6800dir} Reads Li-Cor 6800 files, which are deliminated by spaces and tabs.}
 \usage{
-read_6800dir(filename, skiplines, cimin, cimax, amin, amax, co2list)
+read_6800dir(filename, skiplines, cimin, cimax, amin, amax, co2list,
+  log_freq)
 }
 \arguments{
 \item{filename}{A character string of the form: "mydata".}
