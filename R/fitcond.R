@@ -17,8 +17,8 @@
 #'
 #'
 fitcond <- function(data, rtc..rtc, gsw, gcw, gias, a, b){
-  a <- ifelse(missing(a) == TRUE, 0.5, a)
-  b <- ifelse(missing(b) == TRUE, 2, b)
+  a <- ifelse(missing(a) == TRUE, 2, a)
+  b <- ifelse(missing(b) == TRUE, 0.5, b)
   m      <- nls(rtc..rtc ~ 1.6 * (1 / (gsw - gcw) - 1 / gsw)
                 + 1 / gias, data = data,
                 start = list(gcw = a, gias = b))
