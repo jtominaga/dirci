@@ -6,7 +6,7 @@
 \code{read_6800dir} Reads Li-Cor 6800 files, which are deliminated by spaces and tabs.}
 \usage{
 read_6800dir(filename, skiplines, cimin, cimax, amin, amax, co2list,
-  log_freq)
+  log_freq, deltaP)
 }
 \arguments{
 \item{filename}{A character string of the form: "mydata".}
@@ -22,6 +22,8 @@ read_6800dir(filename, skiplines, cimin, cimax, amin, amax, co2list,
 \item{amax}{Maximum A cutoff}
 
 \item{co2list}{vector of CO2 reference values used}
+
+\item{deltaP}{Overpressure value}
 }
 \value{
 read_6800 imports a Li-Cor 6800 file as a data frame

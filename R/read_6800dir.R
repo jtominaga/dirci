@@ -8,6 +8,7 @@
 #' @param amin Minimum A cutoff
 #' @param amax Maximum A cutoff
 #' @param co2list vector of CO2 reference values used
+#' @param deltaP Overpressure value
 #' @log_freq Frequency in seconds of logging data
 #'
 #' @return read_6800 imports a Li-Cor 6800 file as a data frame
@@ -18,7 +19,7 @@
 #'
 #'
 read_6800dir <- function(filename, skiplines, cimin, cimax, amin, amax,
-                         co2list, log_freq){
+                         co2list, log_freq, deltaP){
   skiplines <- ifelse(missing(skiplines) == TRUE, 56, skiplines)
   cimin <- ifelse(missing(cimin) == TRUE, 0, cimin)
   cimax <- ifelse(missing(cimax) == TRUE, 2000, cimax)
@@ -102,9 +103,9 @@ read_6800dir <- function(filename, skiplines, cimin, cimax, amin, amax,
   data$gtw_corrected <- data$E_corrected * (1000 -
                           (1000 * 0.61365 * exp(17.502 * data$TleafCnd /
                                                   (240.97 + data$TleafCnd)) /
-                             (data$Pa + data$Î.Pcham) + data$H2O_s_corrected) / 2) /
+                             (data$Pa + deltaP) + data$H2O_s_corrected) / 2) /
     (1000 * 0.61365 * exp(17.502 * data$TleafCnd / (240.97 + data$TleafCnd)) /
-       (data$Pa + data$Î.Pcham) + data$H2O_s_corrected)
+       (data$Pa + deltaP) + data$H2O_s_corrected)
   data$gbw_corrected <- data$blfa_3 + data$blfa_2 * 36 + data$blfa_1 ^ 2
 
   data$gsw_corrected <- 1 / (1 / data$gtw_corrected - 1 / data$gbw_corrected)
@@ -114,7 +115,7 @@ read_6800dir <- function(filename, skiplines, cimin, cimax, amin, amax,
   data$gtc._corrected <- data$A_corrected / (data$Ca - data$Ci.m.)
   data$gsw._corrected <- 1.6 / (1 / data$gtc._corrected - 1.37 / data$gbw_corrected)
   data$gsc._corrected <- data$gsw._corrected / 1.6
-  data$VPcham_corrected <- data$H2O_s_corrected * (data$Pa + data$Î.Pcham) / 1000
+  data$VPcham_corrected <- data$H2O_s_corrected * (data$Pa + deltaP) / 1000
   data$VPDleaf_corrected <- (data$SVPleaf - data$VPcham_corrected)
 
   datasplit <- split(data, data$co2count)
