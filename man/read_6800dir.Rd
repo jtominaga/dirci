@@ -23,6 +23,8 @@ read_6800dir(filename, skiplines, cimin, cimax, amin, amax, co2list,
 
 \item{co2list}{vector of CO2 reference values used}
 
+\item{log_freq}{Frequency in seconds of logging data}
+
 \item{deltaP}{Overpressure value}
 }
 \value{

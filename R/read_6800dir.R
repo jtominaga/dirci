@@ -9,7 +9,7 @@
 #' @param amax Maximum A cutoff
 #' @param co2list vector of CO2 reference values used
 #' @param deltaP Overpressure value
-#' @log_freq Frequency in seconds of logging data
+#' @param log_freq Frequency in seconds of logging data
 #'
 #' @return read_6800 imports a Li-Cor 6800 file as a data frame
 #' @importFrom utils read.delim
