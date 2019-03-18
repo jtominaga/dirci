@@ -3,6 +3,7 @@
 export(fitcond)
 export(fitcond2)
 export(fitcond3)
+export(fitcond4)
 export(plotfit)
 export(procharley)
 export(read_6800dir)
